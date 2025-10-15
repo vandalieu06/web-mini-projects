@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./main.js" defer></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body
+    style="
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  >
+    <form
+      class="form"
+      action=""
+      style="width: 400px; display: flex; flex-direction: column; gap: 10px"
+    >
+      <h2 style="font-size: 1.8rem">Login</h2>
+      <span>Email</span>
+      <span class="msg-err-1" style="display: none; color: red"
+        >* Campo necesario</span
+      >
+      <input class="btn-email" type="email" />
+      <span>Password</span>
+      <input class="btn-password" type="password" />
+      <span class="msg-err-2" style="display: none; color: red"
+        >* Campo necesario</span
+      >
+      <button class="btn-submit" type="submit">Validar</button>
+      <span class="msg-correct"></span>
+    </form>
+  </body>
+</html>

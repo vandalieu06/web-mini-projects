@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MY CV - ONLINE</title>
+  <link rel="stylesheet" href="/src/css/global.css">
+  <script type="module" src="/src/login.js" defer></script>
+</head>
+
+<body>
+  <section class="w-full h-screen flex justify-center items-center">
+    <form class="w-max login py-6 px-10 flex flex-col gap-4 bg-fuchsia-50 rounded-lg">
+      <h2 class="text-2xl font-bold mb-6">Login/Sign up</h2>
+      <div class="flex flex-col items-start">
+        <span>Email</span>
+        <input type="text" placeholder="Email" class="email placeholder:opacity-60">
+      </div>
+      <div class="flex flex-col">
+        <span>Password</span>
+        <input type="password" placeholder="Password" class="password placeholder:opacity-60">
+      </div>
+      <button type="submit"
+        class="btn-submit w-max py-2 px-4 rounded-md bg-fuchsia-600 text-sm text-white font-semibold cursor-pointer">
+        Iniciar sesión
+      </button>
+      <span class="msg-error-text text-sm"></span>
+    </form>
+  </section>
+</body>
+
+</html>

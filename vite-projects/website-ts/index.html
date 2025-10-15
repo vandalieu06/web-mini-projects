@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>website-ts</title>
+  <script type="module" src="/src/main.ts" defer></script>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body>
+  <section class="contact container flex flex-col justify-center items-center">
+    <form class="form w-max h-max gap-4 px-4 py-2 flex flex-col items-start">
+      <h2 class="text-3xl font-semibold">Formulario de Contacto</h2>
+      <div class="flex flex-row items-center gap-4">
+        <span class="text-lg font-semibold">Numero</span>
+        <input type="number" placeholder="Ex: 1" class="py-2 px-4 input_number" />
+      </div>
+      <button type="submit"
+        class="py-2 px-4 bg-purple-800 text-white text-base rounded-lg cursor-pointer btn-submit">Enviar</button>
+    </form>
+    <p class="text-lg">
+      El resultado es:
+      <span class="text-result font-semibold">?</span>
+    </p>
+  </section>
+</body>
+
+</html>

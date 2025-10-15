@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@utility container {
+  width: 100%;
+
+  /* Breakpoints */
+  @variant sm {
+    max-width: 640px;
+  }
+  @variant md {
+    max-width: 768px;
+  }
+  @variant lg {
+    max-width: 1024px;
+  }
+  @variant xl {
+    max-width: 1280px;
+  }
+  @variant 2xl {
+    max-width: 1536px;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
