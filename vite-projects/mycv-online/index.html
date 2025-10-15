@@ -1,32 +1,43 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MY CV - ONLINE</title>
-  <link rel="stylesheet" href="/src/css/global.css">
-  <script type="module" src="/src/login.js" defer></script>
+  <link rel="stylesheet" href="/src/css/global.css" />
+  <script type="module" src="/src/js/login.js" defer></script>
 </head>
 
-<body>
-  <section class="w-full h-screen flex justify-center items-center">
-    <form class="w-max login py-6 px-10 flex flex-col gap-4 bg-fuchsia-50 rounded-lg">
-      <h2 class="text-2xl font-bold mb-6">Login/Sign up</h2>
-      <div class="flex flex-col items-start">
-        <span>Email</span>
-        <input type="text" placeholder="Email" class="email placeholder:opacity-60">
+<body class="bg-pink-50">
+  <section class="w-full min-h-screen flex justify-center items-center p-4">
+    <form class="w-full max-w-sm login p-8 sm:p-10 flex flex-col gap-6 bg-white rounded-2xl">
+      <h2 class="text-3xl font-extrabold text-center text-pink-800">
+        MY CV - ONLINE
+      </h2>
+      <h3 class="text-2xl font-extrabold text-center text-pink-700">
+        Login/Sign up
+      </h3>
+
+      <div class="flex flex-col gap-2">
+        <label for="email" class="text-sm font-medium text-gray-700">Email</label>
+        <input type="text" id="email" placeholder="tu.email@ejemplo.com"
+          class="email w-full p-3 border border-gray-300 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 transition duration-150" />
       </div>
-      <div class="flex flex-col">
-        <span>Password</span>
-        <input type="password" placeholder="Password" class="password placeholder:opacity-60">
+
+      <div class="flex flex-col gap-2">
+        <label for="password" class="text-sm font-medium text-gray-700">Password</label>
+        <input type="password" id="password" placeholder="********"
+          class="password w-full p-3 border border-gray-300 rounded-lg placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-pink-400 transition duration-150" />
       </div>
+
       <button type="submit"
-        class="btn-submit w-max py-2 px-4 rounded-md bg-fuchsia-600 text-sm text-white font-semibold cursor-pointer">
-        Iniciar sesión
+        class="btn-submit w-full py-3 mt-2 rounded-xl bg-pink-600 text-lg text-white font-bold tracking-wide hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-200">
+        Iniciar sesión
       </button>
-      <span class="msg-error-text text-sm"></span>
+
+      <span class="msg-error-text text-sm text-center font-medium"></span>
     </form>
   </section>
 </body>
