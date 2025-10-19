@@ -6,18 +6,22 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MY CV - ONLINE</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="/src/css/global.css" />
     <script type="module" src="/src/js/generate_cv.js" defer></script>
 </head>
 
-<body class="flex flex-col items-center bg-pink-50 p-4 sm:p-8">
-    <div class="w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl shadow-md">
+<body class="flex justify-center items-start bg-pink-50 p-4 sm:p-8">
+    <div class="w-4xl bg-white p-6 sm:p-10 rounded-xl shadow-md">
         <h1 class="text-4xl font-extrabold text-center text-pink-800 mb-8 sm:mb-12">Generador de Curriculum Vitae</h1>
 
         <form id="cvForm" class="flex flex-col gap-10">
+            <!-- Información Personal -->
             <section class="border-b pb-6 border-pink-200">
-                <h2 class="text-2xl font-semibold text-pink-600 mb-4">Información Personal y Contacto</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h2 class="text-2xl font-semibold text-pink-600 mb-4">
+                    Información Personal y Contacto
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 personal-info">
                     <div>
                         <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
                         <input type="text" id="nombre"
@@ -58,79 +62,102 @@
                 </div>
             </section>
 
+            <!-- Introducción -->
             <section class="border-b pb-6 border-pink-200">
                 <h2 class="text-2xl font-semibold text-pink-600 mb-4">Resumen Profesional</h2>
                 <div>
-                    <label for="resumen" class="block text-sm font-medium text-gray-700">Escribe un breve párrafo sobre
-                        tu experiencia y objetivos</label>
+                    <label for="resumen" class="block text-sm font-medium text-gray-700">
+                        Escribe un breve párrafo sobre tu experiencia y objetivos
+                    </label>
                     <textarea id="resumen" rows="4"
                         class="cv-resumen mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
                         placeholder="Soy un profesional con 5 años de experiencia en..."></textarea>
                 </div>
             </section>
 
-            <section class="border-b pb-6 border-pink-200">
-                <h2 class="text-2xl font-semibold text-pink-600 mb-4">Experiencia Laboral (Último o Más Relevante)</h2>
-                <div class="flex flex-col gap-4 p-4 border border-pink-200 rounded-lg bg-pink-50">
-                    <div>
-                        <label for="exp-puesto" class="block text-sm font-medium text-gray-700">Puesto</label>
-                        <input type="text" id="exp-puesto"
-                            class="cv-exp-puesto mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                            placeholder="Ej: Desarrollador Front-end">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
+            <!-- Experiencia Laboral -->
+            <section class="border-b pb-6 border-pink-200 ">
+                <h2 class="text-2xl font-semibold text-pink-600 mb-4">Experiencia Laboral</h2>
+                <div class="flex flex-col gap-4 laboral-exp-container">
+                    <div class="flex flex-col gap-4 p-4 border border-pink-200 rounded-lg bg-pink-50">
                         <div>
-                            <label for="exp-empresa" class="block text-sm font-medium text-gray-700">Empresa</label>
-                            <input type="text" id="exp-empresa"
-                                class="cv-exp-empresa mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                                placeholder="Ej: Tech Solutions S.A.">
+                            <label for="exp-puesto" class="block text-sm font-medium text-gray-700">Puesto</label>
+                            <input type="text" id="exp-puesto"
+                                class="cv-exp-puesto mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                placeholder="Ej: Desarrollador Front-end">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="exp-empresa" class="block text-sm font-medium text-gray-700">Empresa</label>
+                                <input type="text" id="exp-empresa"
+                                    class="cv-exp-empresa mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                    placeholder="Ej: Tech Solutions S.A.">
+                            </div>
+                            <div>
+                                <label for="exp-periodo" class="block text-sm font-medium text-gray-700">Período
+                                    (Mes/Año -
+                                    Mes/Año)</label>
+                                <input type="text" id="exp-periodo"
+                                    class="cv-exp-periodo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                    placeholder="Ej: Enero 2020 - Presente">
+                            </div>
                         </div>
                         <div>
-                            <label for="exp-periodo" class="block text-sm font-medium text-gray-700">Período (Mes/Año -
-                                Mes/Año)</label>
-                            <input type="text" id="exp-periodo"
-                                class="cv-exp-periodo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                                placeholder="Ej: Enero 2020 - Presente">
+                            <label for="exp-descripcion" class="block text-sm font-medium text-gray-700">Descripción de
+                                Responsabilidades y Logros (Usar viñetas)</label>
+                            <textarea id="exp-descripcion" rows="3"
+                                class="cv-exp-descripcion mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                placeholder="· Lideré el desarrollo del nuevo sitio web..."></textarea>
                         </div>
-                    </div>
-                    <div>
-                        <label for="exp-descripcion" class="block text-sm font-medium text-gray-700">Descripción de
-                            Responsabilidades y Logros (Usar viñetas)</label>
-                        <textarea id="exp-descripcion" rows="3"
-                            class="cv-exp-descripcion mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                            placeholder="· Lideré el desarrollo del nuevo sitio web..."></textarea>
                     </div>
                 </div>
+
+                <button
+                    class="add_experience py-2 px-4 mt-5 cursor-pointer rounded-xl bg-pink-600 text-md text-white font-semibold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-200">
+                    Agregar Campo</button>
+                <button
+                    class="remove_experience py-2 px-4 mt-5 cursor-pointer rounded-xl bg-pink-600 text-md text-white font-semibold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-200">
+                    Eliminar Campo</button>
             </section>
 
+            <!-- Educación -->
             <section class="border-b pb-6 border-pink-200">
                 <h2 class="text-2xl font-semibold text-pink-600 mb-4">Educación</h2>
-                <div class="flex flex-col gap-4 p-4 border border-pink-200 rounded-lg bg-pink-50">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="edu-titulo" class="block text-sm font-medium text-gray-700">Título
-                                Obtenido</label>
-                            <input type="text" id="edu-titulo"
-                                class="cv-edu-titulo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                                placeholder="Ej: Licenciatura en Informática">
+                <div class="flex flex-col gap-4 education_container">
+                    <div class="flex flex-col gap-4 p-4 border border-pink-200 rounded-lg bg-pink-50">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="edu-titulo" class="block text-sm font-medium text-gray-700">Título
+                                    Obtenido</label>
+                                <input type="text" id="edu-titulo"
+                                    class="cv-edu-titulo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                    placeholder="Ej: Licenciatura en Informática">
+                            </div>
+                            <div>
+                                <label for="edu-institucion"
+                                    class="block text-sm font-medium text-gray-700">Institución</label>
+                                <input type="text" id="edu-institucion"
+                                    class="cv-edu-institucion mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                    placeholder="Ej: Universidad Nacional">
+                            </div>
                         </div>
                         <div>
-                            <label for="edu-institucion"
-                                class="block text-sm font-medium text-gray-700">Institución</label>
-                            <input type="text" id="edu-institucion"
-                                class="cv-edu-institucion mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                                placeholder="Ej: Universidad Nacional">
+                            <label for="edu-periodo" class="block text-sm font-medium text-gray-700">Período</label>
+                            <input type="text" id="edu-periodo"
+                                class="cv-edu-periodo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
+                                placeholder="Ej: 2015 - 2019">
                         </div>
-                    </div>
-                    <div>
-                        <label for="edu-periodo" class="block text-sm font-medium text-gray-700">Período</label>
-                        <input type="text" id="edu-periodo"
-                            class="cv-edu-periodo mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500"
-                            placeholder="Ej: 2015 - 2019">
                     </div>
                 </div>
+                <button
+                    class="add_education py-2 px-4 mt-5 cursor-pointer rounded-xl bg-pink-600 text-md text-white font-semibold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-200">
+                    Agregar Campo</button>
+                <button
+                    class="remove_education py-2 px-4 mt-5 cursor-pointer rounded-xl bg-pink-600 text-md text-white font-semibold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-200">
+                    Eliminar Campo</button>
             </section>
 
+            <!-- Habilidades -->
             <section>
                 <h2 class="text-2xl font-semibold text-pink-600 mb-4">Habilidades (Skills)</h2>
                 <div>
@@ -149,80 +176,7 @@
 
         </form>
     </div>
-    <div class="view_cv hidden w-4xl min-h-96 text-gray-800 p-4 sm:p-8">
-
-        <header class="text-center pb-6 mb-8 border-b border-pink-300">
-            <h1 class="text-4xl font-extrabold text-pink-800 cv-display-nombre uppercase">
-                [NOMBRE COMPLETO]
-            </h1>
-            <p class="text-xl font-light text-gray-600 cv-display-titulo mt-1">
-                [TÍTULO PROFESIONAL O PUESTO DESEADO]
-            </p>
-
-            <div class="text-sm text-gray-500 mt-3 flex justify-center flex-wrap gap-x-4">
-                <span class="cv-display-email">[Email]</span>
-                <span class="cv-display-telefono">[Teléfono]</span>
-                <a href="#" class="text-pink-600 hover:text-pink-800 hover:underline cv-display-linkedin"
-                    target="_blank">
-                    [LinkedIn/Portafolio]
-                </a>
-            </div>
-        </header>
-
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold text-pink-600 border-b-2 border-pink-300 pb-1 mb-3 tracking-wider">
-                PERFIL PROFESIONAL
-            </h3>
-            <p class="text-gray-700 leading-relaxed cv-display-resumen">
-                [Tu breve párrafo sobre experiencia y objetivos.]
-            </p>
-        </section>
-
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold text-pink-600 border-b-2 border-pink-300 pb-1 mb-3 tracking-wider">
-                EXPERIENCIA
-            </h3>
-
-            <div class="mb-5 border-l-4 border-pink-300 pl-4">
-                <h4 class="text-lg font-bold text-gray-800 cv-display-exp-puesto">
-                    [Puesto]
-                </h4>
-                <p class="text-sm font-medium text-gray-600 mb-1">
-                    <span class="cv-display-exp-empresa">[Empresa]</span> |
-                    <span class="cv-display-exp-periodo">[Período]</span>
-                </p>
-                <ul class="list-disc ml-5 text-gray-700 text-sm leading-snug cv-display-exp-descripcion">
-                    <li>[Responsabilidad/Logro 1]</li>
-                </ul>
-            </div>
-
-        </section>
-
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold text-pink-600 border-b-2 border-pink-300 pb-1 mb-3 tracking-wider">
-                EDUCACIÓN
-            </h3>
-
-            <div class="mb-4">
-                <h4 class="text-lg font-bold text-gray-800 cv-display-edu-titulo">
-                    [Título Obtenido]
-                </h4>
-                <p class="text-sm font-medium text-gray-600">
-                    <span class="cv-display-edu-institucion">[Institución]</span> |
-                    <span class="cv-display-edu-periodo">[Período]</span>
-                </p>
-            </div>
-        </section>
-
-        <section>
-            <h3 class="text-xl font-semibold text-pink-600 border-b-2 border-pink-300 pb-1 mb-3 tracking-wider">
-                HABILIDADES
-            </h3>
-            <p class="text-gray-700 cv-display-habilidades">
-                [Habilidad 1], [Habilidad 2], [Habilidad 3], [Habilidad 4], [Habilidad 5]
-            </p>
-        </section>
-
+    <div class="view_cv w-4xl min-h-96 text-gray-800 p-6 sm:p-8 hidden">
     </div>
 
 </body>
