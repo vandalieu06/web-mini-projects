@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias - By Jhonny Claure</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="main.js" defer></script>
+  <script src="calculator.js" defer></script>
+</head>
+
+<body class="p-4">
+  <h1 class="text-4xl font-semibold">Formulario noticia</h1>
+  <div class="notice-container w-6/12 bg-slate-300 px-4 py-6 rounded-md">
+    <form class="notice-form h-max flex gap-3 items-center">
+      <div class=" grid grid-cols-3 gap-4">
+        <input type="text" placeholder="Titulo" class="title-form px-2 bg-white rounded-sm">
+        <input type="date" class="date-form px-2 bg-white rounded-sm">
+        <input type="text" placeholder="Enlaçe noticia" class="link-form px-2 bg-white rounded-sm">
+        <textarea id="" placeholder="Descripcion"
+          class="description-form px-2 bg-white rounded-sm col-span-2"></textarea>
+        <button type="submit" class="form-submit py-2 px-3 bg-purple-400 text-white rounded-md">Añadir Noticia</button>
+      </div>
+    </form>
+  </div>
+
+  <h2 class="pt-6 text-3xl font-semibold">Lista de Noticias</h2>
+  <div class="list-notices" style="display: flex; flex-direction: column; align-items: start;">
+  </div>
+
+  <div class="calculator mt-10">
+    <h2 class="text-4xl font-semibold">Operaciones con el usuario</h2>
+    <div class="flex items-center gap-5 mt-4">
+      <span class="operation"></span>
+      <input class="user-operation" type="number" placeholder="Ej: 1">
+      <button class="generate-operation px-3 py-1 rounded-lg bg-slate-600 text-sm text-white cursor-pointer">Nueva Operacion</button>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuracio Web page</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./customize.js" defer></script>
+  </head>
+
+  <body class="body">
+    <div class="container">
+      <div class="content">
+        <h2 class="title">Configuración de la web</h2>
+        <p class="description">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab
+          asperiores sunt quidem dicta, dolor dolorem, illo voluptate mollitia
+          modi minus sed neque dignissimos ea odio facilis fuga perspiciatis
+          veritatis reprehenderit obcaecati officiis facere aliquid animi quis?
+          Amet fugit delectus atque reiciendis praesentium harum numquam nobis
+          blanditiis. Explicabo consequuntur sint, voluptate fugiat eveniet
+          corrupti. Nam recusandae dignissimos ipsum laborum maiores aliquid,
+          eligendi facilis possimus iste quisquam numquam ipsam repellat
+          dolorem. Odit facilis laboriosam, ut asperiores sed autem. Quae vel
+          molestiae assumenda modi ad odio quia quibusdam possimus deleniti
+          corporis sunt in inventore reprehenderit, tempora illo labore, laborum
+          maiores dolores sit ipsa?
+        </p>
+        <img src="./assets/image-sakura-japan.jpg" alt="" class="image" />
+      </div>
+      <aside>
+        <form id="form">
+          <h2>Configuración</h2>
+          <h3>Web</h3>
+          <div>
+            <span>Color de fons: </span>
+            <select id="option-bg-color">
+              <option value="black">Black</option>
+              <option value="white">White</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+            </select>
+          </div>
+          <h3>Titulo</h3>
+          <div>
+            <span>Color: </span>
+            <select id="option-title-color">
+              <option value="black">Black</option>
+              <option value="white">White</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+            </select>
+          </div>
+          <div>
+            <span>Tipus de lletra: </span>
+            <select id="option-title-font">
+              <option value="serif">Serif</option>
+              <option value="sans-serif">Sans-serif</option>
+              <option value="monospace">Monospace</option>
+            </select>
+          </div>
+          <div>
+            <span>Align: </span>
+            <select id="option-title-align">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+          <div>
+            <span>Tamaño de Letra: </span>
+            <input id="option-title-size" type="number" />
+          </div>
+
+          <h3>Texto</h3>
+          <div>
+            <span>Color: </span>
+            <select id="option-text-color">
+              <option value="black">Black</option>
+              <option value="white">White</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+            </select>
+          </div>
+          <div>
+            <span>Tipus de lletra: </span>
+            <select id="option-text-font">
+              <option value="serif">Serif</option>
+              <option value="sans-serif">Sans-serif</option>
+              <option value="monospace">Monospace</option>
+            </select>
+          </div>
+          <div>
+            <span>Tamaño de Letra: </span>
+            <input id="option-text-size" type="number" />
+          </div>
+          <h3>Imagen</h3>
+          <div>
+            <span>Width: </span>
+            <input type="number" step="50" id="option-image-width" />
+          </div>
+          <div>
+            <span>Height: </span>
+            <input type="number" step="50" id="option-image-height" />
+          </div>
+          <button type="submit" id="btn-submit">Guardar Cambios</button>
+        </form>
+      </aside>
+    </div>
+  </body>
+</html>
