@@ -1,48 +1,69 @@
-function ProductCard(props) {
-  const {
-    src = "./assets/img-1.jpeg",
-    alt = "Hello Image",
-    title = "Nombre Producto",
-    price = "39.99€",
-  } = props;
+import { CartItem, ProductCard } from "./js/components.js";
+import { productos } from "./data/data.js";
+import { isLogin } from "./js/header.js";
 
-  return `
-        <article class="producto">
-            <img
-                src="${src}"
-                alt="${alt}"
-                class="producto-img"
-            />
-            <h3 class="producto-title">${title}</h3>
-            <span class="producto-precio">${price}</span>
-            <button class="producto-add">
-                Añadir
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="128"
-                    height="128"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        fill="#000000"
-                        d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2M1 2v2h2l3.6 7.59l-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25q0-.075.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2"
-                    />
-                </svg>
-            </button>
-        </article>
-    `;
+isLogin();
+
+//Logout
+const headerLogout = document.querySelector(".header-logout");
+headerLogout.addEventListener("click", (e) => {
+  localStorage.removeItem("user");
+  location.reload();
+});
+
+let listProductId = [];
+
+// Cargar Productos
+for (let i = 0; i < 8; i++) {
+  const productoProps = productos[i];
+  const productoHTML = ProductCard(productoProps);
+  const contenedor = document.querySelector(".productos-list");
+  contenedor.innerHTML += productoHTML;
 }
 
-const productoProps = {
-  src: "./assets/img-1.jpeg",
-  alt: "Otra Imagen",
-  title: "Producto Genérico",
-  price: "12.50€",
+//Calculamos el precio de los productos
+const obtainTotalPrice = () => {
+  let totalPrice = 0.0;
+  if (listProductId.length > 0) {
+    for (const productId of listProductId) {
+      const { price } = productos[productId - 1];
+      totalPrice += price;
+    }
+  }
+  return totalPrice;
 };
 
-const productoHTML = ProductCard(productoProps);
-const contenedor = document.querySelector(".container");
-contenedor.innerHTML += productoHTML;
-contenedor.innerHTML += productoHTML;
-contenedor.innerHTML += productoHTML;
-contenedor.innerHTML += productoHTML;
+// Añadir Producto al carrito
+const addNewCartItem = (e) => {
+  if (e.target.classList.contains("producto-add")) {
+    const productoId = e.target.parentNode.id;
+    listProductId.push(productoId);
+    const newCartItem = CartItem(productos[productoId - 1]);
+    const cartItems = document.querySelector(".cart-items");
+    cartItems.innerHTML += newCartItem;
+
+    const priceTotal = document.querySelector(".cart-item-total");
+    priceTotal.textContent = obtainTotalPrice();
+  }
+};
+const productsList = document.querySelector(".productos-list");
+productsList.addEventListener("click", addNewCartItem);
+
+// Comprar
+const createHistoryShops = () => {
+  const historyString = localStorage.getItem("history");
+  const historyArray = historyString ? JSON.parse(historyString) : [];
+  historyArray.push(listProductId);
+  localStorage.setItem("history", JSON.stringify(historyArray));
+};
+
+const btnPay = document.querySelector(".cart-btn-pay");
+btnPay.addEventListener("click", () => {
+  const actualUser = localStorage.getItem("user");
+
+  if (!actualUser) {
+    alert("Debes iniciar sesion");
+  }
+
+  createHistoryShops();
+});
