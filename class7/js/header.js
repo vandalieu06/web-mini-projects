@@ -1,4 +1,4 @@
-export const isLogin = () => {
+const isLogin = () => {
   const user = localStorage.getItem("user");
   if (user) {
     const headerLogin = document.querySelector(".header-login");
@@ -13,3 +13,11 @@ export const isLogin = () => {
     header.insertAdjacentElement("afterbegin", spanUsername);
   }
 };
+
+isLogin();
+
+const headerLogout = document.querySelector(".header-logout");
+headerLogout.addEventListener("click", (e) => {
+  localStorage.removeItem("user");
+  location.reload();
+});
