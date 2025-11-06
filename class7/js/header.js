@@ -19,5 +19,6 @@ isLogin();
 const headerLogout = document.querySelector(".header-logout");
 headerLogout.addEventListener("click", (e) => {
   localStorage.removeItem("user");
+  localStorage.removeItem("history");
   location.reload();
 });
