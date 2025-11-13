@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css"
+    />
+    <script src="./form.js" defer></script>
+    <style>
+      .notes-item {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- PRIMERO -->
+
+    <h2><span class="fullname">[Jhonny]</span> - LES MEVES NOTES</h2>
+
+    <!-- SEGUNDO -->
+
+    <form class="form-notes">
+      <input type="text" placeholder="Introdueix el mòdul" class="form-text" />
+      <input type="number" placeholder="Introdueix la nota" class="form-num" />
+      <small class="message">
+        * Anirem introduint les notes dels diferenets mòduls y tindrmem la seva
+        mitjana.
+      </small>
+      <small class="red">Es guardaran al Local Storage</small>
+      <button class="form-btn">Enviar</button>
+    </form>
+
+    <!-- TERCERO -->
+
+    <div class="notes">
+      <div class="notes-body"></div>
+      <div class="notes-result">
+        <p>
+          La meva mitjana es de <span class="notes-avg"> [AVG(NOTA)] </span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
