@@ -29,7 +29,13 @@
 
     <form class="form-notes">
       <input type="text" placeholder="Introdueix el mòdul" class="form-text" />
-      <input type="number" placeholder="Introdueix la nota" class="form-num" />
+      <input
+        type="number"
+        placeholder="Introdueix la nota"
+        class="form-num"
+        min="0"
+        max="10"
+      />
       <small class="message">
         * Anirem introduint les notes dels diferenets mòduls y tindrmem la seva
         mitjana.
