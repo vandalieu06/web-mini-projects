@@ -1,5 +1,13 @@
 # Aplicació web completa per gestionar tasques de manera eficient
 
+## IMPORTANT
+Abrir index.html con algun live server como el de vscode o `npm install -g live-server` y luego `live-server .`
+
+```bash
+npm install -g live-server
+live-server .
+```
+
 ## Introducció
 
 - **Autenticació**: Iniciar sessió amb un usuari predefinit.
