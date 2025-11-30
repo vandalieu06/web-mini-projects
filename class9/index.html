@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class9 by Jhonny Claure</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="w-full bg-gray-50">
+    <!-- Header -->
+    <header class="w-full py-8 px-4 flex justify-center items-start bg-black">
+      <div class="w-full px-4 flex justify-between items-center text-white">
+        <h1 class="text-2xl font-bold text-center">Gestor de Tareas</h1>
+        <span class="span-username text-xl uppercase">[USERNAME]</span>
+      </div>
+    </header>
+
+    <!-- Formulario de añadir tarea -->
+    <section class="w-full py-8 px-4">
+      <div class="w-full flex flex-col gap-6">
+        <h2 class="text-2xl font-bold">Añadir Tarea</h2>
+        <form class="form-task flex flex-col gap-6">
+          <input
+            type="text"
+            placeholder="Titulo"
+            class="form-task__input focus:outline-none"
+          />
+          <textarea
+            placeholder="Descripción"
+            class="form-task__input focus:outline-none"
+          ></textarea>
+          <select class="form-task__input">
+            <option value="admin">Admin</option>
+            <option value="jhonny">Jhonny</option>
+            <option value="milo">Milo</option>
+          </select>
+          <input type="date" class="form-task__input focus:ooutline-none" />
+          <button
+            type="submit"
+            class="form-task__submit w-max py-1.5 px-6 text-white bg-pink-400 rounded-md cursor-pointer hover:bg-pink-500 transition-all ease-in"
+          >
+            Añadir
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Lista de tareas -->
+    <section class="w-full py-8 px-4">
+      <div class="w-full flex flex-col gap-6">
+        <h2 class="text-2xl font-bold">Tareas</h2>
+        <div class="tasks w-full flex flex-col gap-4">
+          <div
+            class="tasks-header grid grid-cols-6 gap-2 text-lg font-semibold"
+          >
+            <h3>Nombre</h3>
+            <h3>Descripción</h3>
+            <h3>Usuario</h3>
+            <h3>Fecha</h3>
+            <h3>Estado</h3>
+            <h3>Acciones</h3>
+          </div>
+          <div class="tasks-list flex flex-col gap-y-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="./js/home/home.js"></script>
+  </body>
+</html>
