@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buscaminas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./game.js" defer></script>
+  </head>
+  <body class="h-screen flex flex-col justify-center items-center gap-20">
+    <div class="">
+      <h2 class="text-6xl font-bold">Encuentra las minas!</h2>
+      <p class="mt-4 text-2xl">
+        Intentos Restantes: <span class="font-bold intents"></span>
+      </p>
+    </div>
+    <div class="w-2xl grid grid-cols-10 gap-4 game"></div>
+  </body>
+</html>
