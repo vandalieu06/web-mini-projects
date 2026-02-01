@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="icon" href="data:," />
+        <link rel="stylesheet" href="./styles.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="./main.js" defer></script>
+    </head>
+    <body>
+        <section
+            class="w-6xl h-screen py-6 mx-auto flex flex-col justify-center items-center gap-2"
+        >
+            <div class="img-container cursor-pointer">
+                <img
+                    src="https://cataas.com/cat"
+                    alt="Imagen Cargando"
+                    crossorigin="anonymous"
+                    class="img transition ease-in-out"
+                />
+                <div class="img-desc hidden">
+                    <p class="text-7xl">MIAU</p>
+                </div>
+            </div>
+            <div>
+                <button
+                    class="btn-pre py-2 px-8 bg-black text-white rounded-md cursor-pointer"
+                >
+                    Previous Cat
+                </button>
+                <button
+                    class="btn-next py-2 px-8 bg-black text-white rounded-md cursor-pointer"
+                >
+                    Next Cat
+                </button>
+            </div>
+        </section>
+    </body>
+</html>

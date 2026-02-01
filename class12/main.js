@@ -1,9 +1,5 @@
+// Clases de los animales
 class Mascota {
-	nom;
-	edat;
-	foto;
-	tipus;
-
 	constructor(nom, edat, foto, tipus) {
 		this.nom = nom;
 		this.edat = edat;
@@ -11,21 +7,12 @@ class Mascota {
 		this.tipus = tipus;
 	}
 
-	get getName() {
-		return this.nom;
-	}
-	get getEdat() {
-		return this.edat;
-	}
-	get getFoto() {
-		return this.foto;
-	}
-	get getTipus() {
-		return this.tipus;
+	descriure() {
+		return `${this.nom} es un ${this.tipus}.`;
 	}
 
-	descriure() {
-		return `${this.nom} és un ${this.tipus} de ${this.edat} anys.`;
+	ferSo() {
+		return "Sonido genérico";
 	}
 }
 
@@ -34,8 +21,13 @@ class Gos extends Mascota {
 		super(nom, edat, foto, "Gos");
 		this.raça = raça;
 	}
-	getTipus() {
+
+	getInformacionExtra() {
 		return this.raça;
+	}
+
+	ferSo() {
+		return "¡Guau guau!";
 	}
 }
 
@@ -45,7 +37,7 @@ class Gat extends Mascota {
 	}
 
 	ferSo() {
-		return "Miau miau";
+		return "¡Miau miau!";
 	}
 }
 
@@ -55,85 +47,125 @@ class Ocell extends Mascota {
 	}
 
 	ferSo() {
-		return "Piu piu";
+		return "¡Piu piu!";
 	}
 }
 
-const ComponentBox = (name, edat, imageURL, raza = "ninguna") => {
-	const pRaza =
-		raza === "ninguna" ? "" : `<p class="text-sm text-gray-500">${raza}</p>`;
-	return `
-	<article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100">
-    <img
-      src="${imageURL}"
-      alt="Imagen del animal"
-      class="w-full h-40 object-cover"
-    />
-
-    <div class="p-4">
-      <div class="flex justify-between items-center mb-1">
-        <p class="text-lg font-bold text-gray-700 truncate">${name}</p>
-        <span class="text-sm font-medium bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full">
-          ${edat}
-        </span>
-      </div>
-      ${pRaza}
-    </div>
-  </article>
-  `;
-};
-
+// Logica de la aplicación
 let animals = [];
+const DB_NAME = "animals_data";
 
-const saveData = (db, data) => {
-	localStorage.setItem(db, JSON.stringify(data));
-};
+const animalForm = document.querySelector(".animal-form");
+const tipoSelect = document.querySelector(".animal-tipo");
+const razaInput = document.querySelector(".animal-raza");
+const searchInput = document.querySelector('input[type="search"]');
+const boxAnimals = document.querySelector(".boxs-animals");
 
-const loadData = (db) => {
-	return JSON.parse(localStorage.getItem(db));
-};
+const saveData = () => localStorage.setItem(DB_NAME, JSON.stringify(animals));
 
-const renderTemplate = (data) => {
-	const boxAnimals = document.querySelector(".boxs-animals");
-	boxAnimals.innerHTML = "";
-	data.forEach((d) => {
-		boxAnimals.innerHTML += ComponentBox(d.name, d.edat, d.imagen);
+const loadData = () => {
+	const data = localStorage.getItem(DB_NAME);
+	if (!data) return [];
+
+	// He utilizado IA para entender la aplicacion del uso de las classes en está app,
+	// porque no habia tenido en cuneta el uso de clases para los datos al inicio.
+	const rawArray = JSON.parse(data);
+	return rawArray.map((item) => {
+		if (item.tipus === "Gos")
+			return new Gos(item.nom, item.edat, item.foto, item.raça);
+		if (item.tipus === "Gat") return new Gat(item.nom, item.edat, item.foto);
+		if (item.tipus === "Ocell")
+			return new Ocell(item.nom, item.edat, item.foto);
+		return new Mascota(item.nom, item.edat, item.foto, item.tipus);
 	});
 };
 
-const animalForm = document.querySelector(".animal-form");
-const tipoSelect = animalForm.querySelector(".animal-tipo");
-const razaInput = animalForm.querySelector(".animal-raza");
+const ComponentAnimal = (animal, index) => {
+	const infoExtra = animal instanceof Gos ? animal.raça : animal.ferSo();
+	const badgeColor =
+		animal instanceof Gos
+			? "bg-orange-100 text-orange-700"
+			: animal instanceof Gat
+				? "bg-purple-100 text-purple-700"
+				: "bg-blue-100 text-blue-700";
+
+	return `
+    <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 flex flex-col">
+        <img src="${animal.foto}" alt="${animal.nom}" class="w-full h-48 object-cover bg-gray-200" onerror="this.src='https://via.placeholder.com/400x300?text=Sin+Foto'">
+        <div class="p-4 grow">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-xl font-bold text-gray-800">${animal.nom}</h3>
+                <span class="text-xs font-bold uppercase px-2 py-1 rounded ${badgeColor}">${animal.tipus}</span>
+            </div>
+            <p class="text-gray-600 text-sm">Edad: ${animal.edat} años</p>
+            <p class="text-gray-500 text-sm italic mt-1">${infoExtra}</p>
+        </div>
+        <div class="p-4 pt-0">
+            <button class="w-full bg-red-50 text-red-600 py-2 rounded font-medium hover:bg-red-600 hover:text-white transition delete-btn" data-index="${index}">
+                Eliminar
+            </button>
+        </div>
+    </article>
+  `;
+};
+
+boxAnimals.addEventListener("click", (e) => {
+	if (e.target.classList.contains("delete-btn")) {
+		const idx = e.target.dataset.index;
+		animals.splice(idx, 1);
+		saveData();
+		renderTemplate();
+	}
+});
+
+const renderTemplate = (data = animals) => {
+	boxAnimals.innerHTML = data
+		.map((animal, index) => ComponentAnimal(animal, index))
+		.join("");
+};
 
 tipoSelect.addEventListener("change", (e) => {
-	if (e.target.value === "dog") {
-		razaInput.disabled = false;
-	} else {
-		razaInput.disabled = true;
-		razaInput.value = "";
-	}
+	const isDog = e.target.value === "dog";
+	razaInput.disabled = !isDog;
+	razaInput.classList.toggle("bg-gray-100", !isDog);
+	if (!isDog) razaInput.value = "";
 });
 
 animalForm.addEventListener("submit", (e) => {
 	e.preventDefault();
-	const animal = new FormData(animalForm);
-	const data = Object.fromEntries(animal.entries());
+	const fd = new FormData(animalForm);
+	const name = fd.get("name");
+	const edat = fd.get("edat");
+	const imagen = fd.get("imagen");
+	const tipo = fd.get("tipo");
+	const raza = fd.get("raza");
 
-	for (const a in data) {
-		if (data[a] === "") {
-			alert("Datos vacios");
-			return;
-		}
-	}
+	let nuevaMascota;
+	if (tipo === "dog") nuevaMascota = new Gos(name, edat, imagen, raza);
+	else if (tipo === "cat") nuevaMascota = new Gat(name, edat, imagen);
+	else if (tipo === "bird") nuevaMascota = new Ocell(name, edat, imagen);
+	else nuevaMascota = new Mascota(name, edat, imagen, "Desconocido");
 
-	animals.push(data);
-	saveData("animals", animals);
-	renderTemplate(animals);
+	animals.push(nuevaMascota);
+	saveData();
+	renderTemplate();
+	animalForm.reset();
+	razaInput.disabled = true;
+	razaInput.classList.add("bg-gray-100");
+});
+
+searchInput.addEventListener("input", (e) => {
+	const term = e.target.value.toLowerCase();
+	const filtered = animals.filter(
+		(a) =>
+			a.nom.toLowerCase().includes(term) ||
+			a.tipus.toLowerCase().includes(term) ||
+			a.raça?.toLowerCase().includes(term),
+	);
+	renderTemplate(filtered);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-	if (loadData("animals")) {
-		animals = loadData("animals");
-		renderTemplate(animals);
-	}
+	animals = loadData();
+	renderTemplate();
 });
