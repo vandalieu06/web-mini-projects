@@ -1,54 +1,70 @@
-console.info("Se ha cargado la pagina de Login.html");
+const USERS_KEY = "users";
+const USER_KEY = "currentUser";
 
-const users = [
-	{
-		name: "Admin",
-		email: "admin@admin.com",
-		password: "admin1234",
-		isAdmin: true,
-	},
-	{
-		name: "Jhonny",
-		email: "jhonny@test.com",
-		password: "1111",
-		isAdmin: false,
-	},
+const defaultUsers = [
+    {
+        name: "Admin",
+        email: "admin@admin.com",
+        password: "admin123",
+        isAdmin: true
+    },
+    {
+        name: "Jhonny",
+        email: "jhonny@test.com",
+        password: "1111",
+        isAdmin: false
+    },
+    {
+        name: "Maria",
+        email: "maria@test.com",
+        password: "2222",
+        isAdmin: false
+    }
 ];
 
-const saveUserInLocalStorage = (user) => {
-	delete user.password;
-	const pareUser = JSON.stringify(user);
-	localStorage.setItem("user", [pareUser]);
-	console.log(JSON.parse(localStorage.getItem("user")));
+const getUsersFromLocalStorage = () => {
+    let users = localStorage.getItem(USERS_KEY);
+    if (!users) {
+        localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
+        return defaultUsers;
+    }
+    return JSON.parse(users);
 };
 
-const form = document.querySelector(".form");
-form.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const email = document.querySelector('input[name="email"]');
-	const password = document.querySelector('input[name="password"]');
+const saveUserToLocalStorage = (user) => {
+    const { password, ...userWithoutPassword } = user;
+    localStorage.setItem(USER_KEY, JSON.stringify(userWithoutPassword));
+};
 
-	const data = {
-		email: email.value.trim().toLowerCase(),
-		password: password.value,
-	};
+document.addEventListener("DOMContentLoaded", () => {
+    getUsersFromLocalStorage();
+    
+    const existingUser = localStorage.getItem(USER_KEY);
+    if (existingUser) {
+        window.location.href = "index.html";
+        return;
+    }
 
-	console.log(`Datos ingresados: ${data.email} - ${data.password}`);
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-	for (const user of users) {
-		if (user.email !== data.email) {
-			continue;
-		}
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
 
-		if (user.password === data.password) {
-			console.log(`Se ha logueado con el usuario ${user.name}`);
-			console.log(user.isAdmin ? "Es admin" : "No es admin");
-			saveUserInLocalStorage(user);
+        if (!email || !password) {
+            alert("Por favor ingresa email y password");
+            return;
+        }
 
-			location.href = "/";
-			break;
-		} else {
-			console.log("Credeciales incorrectas");
-		}
-	}
+        const users = getUsersFromLocalStorage();
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            saveUserToLocalStorage(user);
+            window.location.href = "index.html";
+        } else {
+            alert("Email o password incorrectos");
+        }
+    });
 });
