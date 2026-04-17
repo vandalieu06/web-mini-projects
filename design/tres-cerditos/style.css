@@ -1,0 +1,296 @@
+:root {
+  --bg-paper: #fdf8f0;
+  --text-main: #3d342b;
+  --accent-soft: #ff8b94;
+  --border-story: #e9e0d2;
+  --font-display: "Cherry Bomb One", cursive;
+  --font-body: "Quicksand", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+/* Indicador superior */
+#scroll-indicator {
+  position: fixed;
+  top: 0;
+  height: 8px;
+  background: var(--accent-soft);
+  width: 0%;
+  z-index: 1000;
+  animation: progress auto linear forwards;
+  animation-timeline: scroll();
+}
+@keyframes progress {
+  to {
+    width: 100%;
+  }
+}
+
+.book-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Página base: Siempre Título arriba, contenido abajo */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Móvil: Todo en columna */
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 40px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column; /* Móvil: Imagen sobre texto */
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+/* Desktop: Forzamos el ROW y el orden del título */
+@media (min-width: 1024px) {
+  .page {
+    padding: 40px 80px;
+  }
+
+  .content-wrapper {
+    flex-direction: row; /* Desktop: Imagen y Texto lado a lado */
+    justify-content: space-between;
+    gap: 60px;
+  }
+
+  /* Alternancia de lado para las secciones pares */
+  .page:nth-child(even) .content-wrapper {
+    flex-direction: row-reverse;
+  }
+
+  .image-frame {
+    flex: 1;
+    max-width: 500px;
+  }
+  .text-card {
+    flex: 1;
+    max-width: 500px;
+    font-size: 1.5rem;
+  }
+}
+
+/* --- ESTILOS DE COMPONENTES --- */
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--accent-soft);
+  text-align: center;
+  width: 100%;
+  animation: revealText auto linear forwards;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+
+.image-frame {
+  background: white;
+  padding: 15px;
+  box-shadow: 12px 12px 0px var(--border-story);
+  border-radius: 8px;
+  transform: rotate(-1.5deg);
+}
+
+.image-frame img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+}
+
+.text-card {
+  background: white;
+  padding: 35px;
+  border-radius: 40px 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  border-left: 10px solid var(--accent-soft);
+  animation: revealUp auto linear forwards;
+  animation-timeline: view();
+  animation-range: entry 5% cover 35%;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes revealText {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efectos visuales de scroll */
+.img-zoom {
+  animation: zoom auto linear;
+  animation-timeline: view();
+}
+@keyframes zoom {
+  from {
+    transform: scale(0.7) rotate(-5deg);
+  }
+}
+
+.img-wobble {
+  animation: shake auto linear;
+  animation-timeline: view();
+}
+@keyframes shake {
+  50% {
+    transform: translateX(15px) rotate(2deg);
+  }
+}
+
+.img-exit {
+  animation: fly auto linear;
+  animation-timeline: view();
+  animation-range: exit 0% exit 100%;
+}
+@keyframes fly {
+  to {
+    transform: translate(300px, -300px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Zona Lobo */
+.danger-zone {
+  view-timeline-name: --danger;
+}
+body {
+  animation: bgDanger auto linear;
+  animation-timeline: --danger;
+  animation-range: entry 10% exit 90%;
+}
+@keyframes bgDanger {
+  50% {
+    background-color: #fff2f2;
+  }
+}
+
+/* --- ANIMACIÓN DE SALIDA TIPO "LIBRO" --- */
+
+@keyframes pageOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg) translateX(0);
+    filter: brightness(1);
+  }
+  /* Al llegar al 40% del proceso de salida, empieza a encogerse */
+  50% {
+    filter: brightness(0.9);
+  }
+  100% {
+    opacity: 0;
+    /* Efecto: Se aleja, se inclina y se desliza a la izquierda */
+    transform: scale(0.8) rotate(-5deg) translateX(-100px);
+    filter: brightness(0.7) blur(4px);
+  }
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  gap: 40px;
+
+  /* PERSPECTIVA: Importante para que el efecto 3D se note */
+  perspective: 1000px;
+
+  /* Aplicamos la nueva animación */
+  animation: pageOut linear forwards;
+  animation-timeline: view();
+
+  /* Empieza a animar cuando el tope de la sección toca el tope del navegador
+     y termina cuando el 80% de la sección ha pasado */
+  animation-range: exit 50% exit 80%;
+}
+
+/* --- MEJORA DE LOS HIJOS (PARALAX INTERNO) --- */
+
+/* Hacemos que la imagen y el texto salgan a velocidades ligeramente
+   distintas para dar profundidad */
+.page[class] .image-frame {
+  animation: exitImage auto linear forwards;
+  animation-timeline: view();
+  animation-range: exit 0% exit 80%;
+}
+
+.page[class] .text-card {
+  animation: exitText auto linear forwards;
+  animation-timeline: view();
+  animation-range: exit 0% exit 80%;
+}
+
+@keyframes exitImage {
+  to {
+    transform: translateZ(50px) translateY(-20px);
+  }
+}
+
+@keyframes exitText {
+  to {
+    transform: translateZ(-50px) translateY(20px);
+  }
+}
+
+/* --- OPTIMIZACIÓN DE ENTRADA --- */
+/* Ajustamos para que la entrada sea más "elástica" y combine con el estilo */
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes pageOutRight {
+  100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(5deg) translateX(100px);
+    filter: brightness(0.7) blur(4px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page:nth-child(even) {
+    animation-name: pageOutRight;
+  }
+}
