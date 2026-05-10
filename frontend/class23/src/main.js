@@ -64,9 +64,9 @@ formEmociones.addEventListener("submit", async (e) => {
   e.preventDefault();
   const newData = dataEmociones[lastId]?.title?.toLocaleLowerCase();
 
-  const res = await fetch("/server/index.php", {
+  const res = await fetch("/server/add-estat.php", {
     method: "POST",
-    body: JSON.stringify(newData),
+    body: JSON.stringify({ estat: newData }),
   });
-  console.log(res);
+  console.log(await res.json());
 });
